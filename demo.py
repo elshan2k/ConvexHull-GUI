@@ -10,7 +10,7 @@ def on_dot_click(event):
     x = event.x
     y = event.y
     points.append((x, y))
-    canvas.create_rectangle(x, y, x + 3, y + 3, fill="#476042")
+    canvas.create_rectangle(x-2, y-2, x + 2, y + 2, fill="#476042")
 
 
 def reset_canvas(e):
@@ -23,6 +23,8 @@ def reset_canvas(e):
 def convex_hull(e):
     for line in lines:
         canvas.delete(line)
+
+    lines.clear()
 
     # res = []
 
@@ -59,13 +61,15 @@ if __name__ == "__main__":
 
     canvas = Canvas(frame, width="600", height="600")
     canvas.pack(fill=BOTH, expand=1)
+    canvas.bind('<Button-1>', on_dot_click)
+
     button = Button(frame, text="Start")
     button.bind('<Button-1>', convex_hull)
     button.pack(side='left', padx=10)
+    
     reset = Button(frame, text="Reset")
     reset.pack(side='left', padx=10)
     reset.bind('<Button-1>', reset_canvas)
 
-    canvas.bind('<Button-1>', on_dot_click)
     frame.mainloop()
     # print(points)
